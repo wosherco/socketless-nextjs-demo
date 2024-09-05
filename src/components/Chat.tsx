@@ -9,14 +9,13 @@ import { Loader, Send } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { Input } from "./ui/input";
 
-function MessagesHistory({ messages }: { messages: any }) {
+function MessagesHistory({ messages }: { messages: string[] }) {
   return <div>
-    {messages.map((message: any, index: number) => {
-      const jsonData = JSON.parse(message.data)
-      return <div key={index}>
-        {`${jsonData.name}: ${jsonData.message}`}
-      </div>
-    })}
+    {messages.map((message) =>
+      <p key={message}>
+        {message}
+      </p>
+    )}
   </div>
 }
 
@@ -33,12 +32,12 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
   }, [cookies, websocketUrl, name]);
 
   // Opening websocket and creating a message history
-  const [messageHistory, setMessageHistory] = useState<MessageEvent<any>[]>([]);
+  const [messageHistory, setMessageHistory] = useState<string[]>([]);
   const { sendMessage, lastMessage, readyState } = useWebSocket(websocketUrl);
 
   useEffect(() => {
     if (lastMessage !== null) {
-      setMessageHistory((prev) => prev.concat(lastMessage));
+      setMessageHistory((prev) => prev.concat(lastMessage.data));
     }
   }, [lastMessage]);
 

@@ -19,7 +19,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-use-websocket": "^4.8.1",
-    "socketless.ws": "1.1.2",
+    "socketless.ws": "1.2.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },

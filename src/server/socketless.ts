@@ -6,14 +6,14 @@ export const socketless = createSocketless({
   url: process.env.SOCKETLESS_URL!,
   onConnect(context, identifier) {
     console.log("User connected", identifier);
-    context.send(`${identifier} connected`, { rooms: ["demo"] });
+    context.send(`${identifier} connected`, { feeds: ["demo"] });
   },
   onDisconnect(context, identifier) {
     console.log("User disconnected", identifier);
-    context.send(`${identifier} disconnected`, { rooms: ["demo"] });
+    context.send(`${identifier} disconnected`, { feeds: ["demo"] });
   },
   onMessage(context, identifier, message) {
     console.log("Message received", message);
-    context.send(`${identifier}: "${message}"`, { rooms: ["demo"] });
+    context.send(`${identifier}: "${message}"`, { feeds: ["demo"] });
   },
 });

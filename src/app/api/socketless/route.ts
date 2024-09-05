@@ -1,3 +1,5 @@
 import { socketless } from "@/server/socketless";
 
-export const POST = socketless.POST;
+export const runtime = "edge";
+
+export const { POST } = socketless.generateRoutes();

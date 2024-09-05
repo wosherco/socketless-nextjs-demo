@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { generate } from "random-words";
 
+export const runtime = "edge";
+
 export default async function Home() {
   let name = cookies().get("socketless_name")?.value;
   let url = cookies().get("socketless_url")?.value;

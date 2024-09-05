@@ -19,7 +19,7 @@ export default async function Home() {
       },
     })
 
-    const response = await socketless.getConnection(name, ["demo"]);
+    const response = await socketless().getConnection(name, ["demo"]);
     url = response.url;
   }
 

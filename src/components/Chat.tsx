@@ -10,7 +10,7 @@ import { useCookies } from "next-client-cookies";
 import { Input } from "./ui/input";
 
 function MessagesHistory({ messages }: { messages: string[] }) {
-  return <div>
+  return <div className="flex flex-col gap-2">
     {messages.map((message) =>
       <p key={message}>
         {message}

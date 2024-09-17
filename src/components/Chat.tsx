@@ -1,12 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { useSocketless } from "@/lib/socketless";
 import { Loader, Send } from "lucide-react";
-import { useCookies } from "next-client-cookies";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 
 function MessagesHistory({ messages }: { messages: string[] }) {
@@ -19,25 +17,14 @@ function MessagesHistory({ messages }: { messages: string[] }) {
   </div>
 }
 
-export default function Chat({ websocketUrl, name }: { websocketUrl: string; name: string; }) {
-  const cookies = useCookies();
-  // Saving cookies
-  useEffect(() => {
-    cookies.set("socketless_url", websocketUrl, {
-      expires: new Date(Date.now() + 1000 * 60 * 60),
-    });
-    cookies.set("socketless_name", name, {
-      expires: new Date(Date.now() + 1000 * 60 * 60),
-    });
-  }, [cookies, websocketUrl, name]);
-
+export default function Chat({ name }: { name: string; }) {
   // Opening websocket and creating a message history
   const [messageHistory, setMessageHistory] = useState<string[]>([]);
-  const { sendMessage, lastMessage, readyState } = useWebSocket(websocketUrl);
+  const { client, lastMessage } = useSocketless();
 
   useEffect(() => {
     if (lastMessage !== null) {
-      setMessageHistory((prev) => prev.concat(lastMessage.data));
+      setMessageHistory((prev) => prev.concat(lastMessage));
     }
   }, [lastMessage]);
 
@@ -56,9 +43,11 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
   const sendMessageCallback = useCallback(() => {
     if (!valid) return;
 
-    sendMessage(message);
+    client?.send({
+      message
+    })
     setMessage("");
-  }, [sendMessage, message, setMessage, valid])
+  }, [valid, client, message])
 
   return <div className="h-screen w-full flex items-center justify-center">
     <Card className="max-w-[500px] w-full mx-4">
@@ -72,7 +61,7 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
       </CardHeader>
       <CardContent className="min-h-[400px]">
         {
-          readyState === ReadyState.OPEN ?
+          client?.getState() === "CONNECTED" ?
 
             // Socket is connected, showing messages
             <MessagesHistory messages={messageHistory} /> :

@@ -1,14 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { useSocketless } from "@/lib/socketless";
 import { Loader, Send } from "lucide-react";
-import { useCookies } from "next-client-cookies";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
-import { useSocketless, useSocketlessWebsocket } from "@/lib/socketless";
 
 function MessagesHistory({ messages }: { messages: string[] }) {
   return <div className="flex flex-col gap-2">
@@ -20,21 +17,10 @@ function MessagesHistory({ messages }: { messages: string[] }) {
   </div>
 }
 
-export default function Chat({ websocketUrl, name }: { websocketUrl: string; name: string; }) {
-  const cookies = useCookies();
-  // Saving cookies
-  useEffect(() => {
-    cookies.set("socketless_url", websocketUrl, {
-      expires: new Date(Date.now() + 1000 * 60 * 60),
-    });
-    cookies.set("socketless_name", name, {
-      expires: new Date(Date.now() + 1000 * 60 * 60),
-    });
-  }, [cookies, websocketUrl, name]);
-
+export default function Chat({ name }: { name: string; }) {
   // Opening websocket and creating a message history
   const [messageHistory, setMessageHistory] = useState<string[]>([]);
-  const { client, lastMessage } = useSocketlessWebsocket(websocketUrl);
+  const { client, lastMessage } = useSocketless();
 
   useEffect(() => {
     if (lastMessage !== null) {

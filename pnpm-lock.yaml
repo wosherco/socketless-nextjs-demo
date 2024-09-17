@@ -11,6 +11,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.5)(react@18.3.1)
+      '@socketless/react':
+        specifier: 1.0.1
+        version: 1.0.1(react@18.3.1)(socketless.ws@1.5.1)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -23,9 +26,6 @@ importers:
       next:
         specifier: 14.2.7
         version: 14.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-client-cookies:
-        specifier: ^1.1.1
-        version: 1.1.1(next@14.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       random-words:
         specifier: ^2.0.1
         version: 2.0.1
@@ -35,22 +35,25 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
-      react-use-websocket:
-        specifier: ^4.8.1
-        version: 4.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       socketless.ws:
-        specifier: 1.2.0
-        version: 1.2.0
+        specifier: 1.5.1
+        version: 1.5.1
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.10(ts-node@10.9.1(@types/node@20.16.5)(typescript@5.5.4)))
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@cloudflare/next-on-pages':
         specifier: ^1.13.2
-        version: 1.13.2(vercel@37.4.0)(wrangler@3.74.0)
+        version: 1.13.2(@cloudflare/workers-types@4.20240909.0)(vercel@37.4.0)(wrangler@3.74.0(@cloudflare/workers-types@4.20240909.0))
+      '@cloudflare/workers-types':
+        specifier: ^4.20240903.0
+        version: 4.20240909.0
       '@types/node':
         specifier: ^20
         version: 20.16.5
@@ -133,6 +136,9 @@ packages:
   '@cloudflare/workers-shared@0.4.1':
     resolution: {integrity: sha512-nYh4r8JwOOjYIdH2zub++CmIKlkYFlpxI1nBHimoiHcytJXD/b7ldJ21TtfzUZMCgI78mxVlymMHA/ReaOxKlA==}
     engines: {node: '>=16.7.0'}
+
+  '@cloudflare/workers-types@4.20240909.0':
+    resolution: {integrity: sha512-4knwtX6efxIsIxawdmPyynU9+S8A78wntU8eUIEldStWP4gNgxGkeWcfCMXulTx8oxr3DU4aevHyld9HGV8VKQ==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -487,8 +493,14 @@ packages:
   '@sinclair/typebox@0.25.24':
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
 
-  '@socketless/shared@1.1.0':
-    resolution: {integrity: sha512-RaLDFgevNnSTZ7qX2T2k3K8Jn6emUnmHYUNhMdu7ND1yvxAzUfes2qFQTv67/SIgl/1taOnMIaFrH7diRUD38g==}
+  '@socketless/react@1.0.1':
+    resolution: {integrity: sha512-ZXX0JOJaKZlOzfqBhIjBV4dL1DFPgduvxI94unOKooogpaIDs8sepr2TbQ8rShxtAI3FQvNUrnBp0Fax7Co2dQ==}
+    peerDependencies:
+      react: ^17.0.2 || ^18.0.0
+      socketless.ws: 1.5.1
+
+  '@socketless/shared@1.1.1':
+    resolution: {integrity: sha512-DAefW00rKjV4qo97mWK02exEzXS43ivB2/Heq9lZBVMWg5Gby2tR4HA1OFSsxWSLwcnhrOfS3dXEperseTECRA==}
 
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
@@ -1862,10 +1874,6 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
-  js-cookie@3.0.5:
-    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
-    engines: {node: '>=14'}
-
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -2062,12 +2070,6 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
-
-  next-client-cookies@1.1.1:
-    resolution: {integrity: sha512-7/wiTI5RPJcP7c1zh5a9XNkvChihtattUG9dHMvfijtvzgEQXotr6E3AHYD1aXyVqGiZA95y/cWlcEI5EJ31tw==}
-    peerDependencies:
-      next: '>= 13.0.0'
-      react: '>= 16.8.0'
 
   next@14.2.7:
     resolution: {integrity: sha512-4Qy2aK0LwH4eQiSvQWyKuC7JXE13bIopEQesWE0c/P3uuNRnZCQanI0vsrMLmUQJLAto+A+/8+sve2hd+BQuOQ==}
@@ -2385,12 +2387,6 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react-use-websocket@4.8.1:
-    resolution: {integrity: sha512-FTXuG5O+LFozmu1BRfrzl7UIQngECvGJmL7BHsK4TYXuVt+mCizVA8lT0hGSIF0Z0TedF7bOo1nRzOUdginhDw==}
-    peerDependencies:
-      react: '>= 18.0.0'
-      react-dom: '>= 18.0.0'
-
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -2552,8 +2548,8 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  socketless.ws@1.2.0:
-    resolution: {integrity: sha512-6AZWDjd0B/V96kTId1KGv28Y5CcN8VPPEnDHt44nqsRIaTEQznZJZZ/Gl80c54SmMz8fPybu0ugAYOsRwswTKQ==}
+  socketless.ws@1.5.1:
+    resolution: {integrity: sha512-f6nWRAD8Q+xIf4UU1IxzA0G+yOimXvZaWacf8oAa20FwEnFy+O9Lz9OZwZj1vXh0ISkGXfwhpcP5HwHehYBQTA==}
 
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
@@ -2975,7 +2971,7 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@cloudflare/next-on-pages@1.13.2(vercel@37.4.0)(wrangler@3.74.0)':
+  '@cloudflare/next-on-pages@1.13.2(@cloudflare/workers-types@4.20240909.0)(vercel@37.4.0)(wrangler@3.74.0(@cloudflare/workers-types@4.20240909.0))':
     dependencies:
       acorn: 8.12.1
       ast-types: 0.14.2
@@ -2990,7 +2986,9 @@ snapshots:
       pcre-to-regexp: 1.1.0
       semver: 7.6.3
       vercel: 37.4.0
-      wrangler: 3.74.0
+      wrangler: 3.74.0(@cloudflare/workers-types@4.20240909.0)
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20240909.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -3012,6 +3010,8 @@ snapshots:
     optional: true
 
   '@cloudflare/workers-shared@0.4.1': {}
+
+  '@cloudflare/workers-types@4.20240909.0': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -3268,7 +3268,14 @@ snapshots:
 
   '@sinclair/typebox@0.25.24': {}
 
-  '@socketless/shared@1.1.0':
+  '@socketless/react@1.0.1(react@18.3.1)(socketless.ws@1.5.1)':
+    dependencies:
+      '@socketless/shared': 1.1.1
+      react: 18.3.1
+      socketless.ws: 1.5.1
+      zod: 3.23.8
+
+  '@socketless/shared@1.1.1':
     dependencies:
       zod: 3.23.8
 
@@ -3848,7 +3855,7 @@ snapshots:
 
   debug@4.1.1:
     dependencies:
-      ms: 2.1.1
+      ms: 2.1.3
 
   debug@4.3.6:
     dependencies:
@@ -4880,8 +4887,6 @@ snapshots:
 
   jiti@1.21.6: {}
 
-  js-cookie@3.0.5: {}
-
   js-tokens@4.0.0: {}
 
   js-yaml@4.1.0:
@@ -5072,12 +5077,6 @@ snapshots:
   nanoid@3.3.7: {}
 
   natural-compare@1.4.0: {}
-
-  next-client-cookies@1.1.1(next@14.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
-    dependencies:
-      js-cookie: 3.0.5
-      next: 14.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
 
   next@14.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -5368,11 +5367,6 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-use-websocket@4.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   react@18.3.1:
     dependencies:
       loose-envify: 1.4.0
@@ -5541,9 +5535,9 @@ snapshots:
 
   slash@3.0.0: {}
 
-  socketless.ws@1.2.0:
+  socketless.ws@1.5.1:
     dependencies:
-      '@socketless/shared': 1.1.0
+      '@socketless/shared': 1.1.1
       zod: 3.23.8
 
   source-map-js@1.2.0: {}
@@ -5978,7 +5972,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20240821.1
       '@cloudflare/workerd-windows-64': 1.20240821.1
 
-  wrangler@3.74.0:
+  wrangler@3.74.0(@cloudflare/workers-types@4.20240909.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@cloudflare/workers-shared': 0.4.1
@@ -5999,6 +5993,7 @@ snapshots:
       workerd: 1.20240821.1
       xxhash-wasm: 1.0.2
     optionalDependencies:
+      '@cloudflare/workers-types': 4.20240909.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil

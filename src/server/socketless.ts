@@ -1,7 +1,7 @@
 import { createSocketless } from "socketless.ws/server";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 import { z } from "zod";
-import { MessageSchema } from "@/lib/socketless";
+import { MessageSchema } from "@/lib/validators";
 
 /// Create a new Socketless server on normal environments
 // export const socketless = createSocketless({

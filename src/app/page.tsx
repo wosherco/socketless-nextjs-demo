@@ -1,28 +1,19 @@
-import Chat from "@/components/Chat";
-import { SocketlessProvider } from "@/lib/socketless";
 import { socketless } from "@/server/socketless";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { generate } from "random-words";
+import Test from "@/components/Test";
 
 export const runtime = "edge";
 
 export default async function Home() {
-  let name = cookies().get("socketless_name")?.value;
-  let url = cookies().get("socketless_url")?.value;
-
-  if (!name || !url) {
-    name = generate({
-      exactly: 4, join: "", formatter: (word, index) => {
-        return index === 0
-          ? word.slice(0, 1).toUpperCase().concat(word.slice(1))
-          : word;
-      },
-    })
-
-    const response = await socketless().getConnection(name, ["demo"]);
-    url = response.url;
-  }
+  const name = generate({
+    exactly: 4, join: "", formatter: (word, index) => {
+      return index === 0
+        ? word.slice(0, 1).toUpperCase().concat(word.slice(1))
+        : word;
+    },
+  })
+  const { url } = await socketless().getConnection(name, ["demo"]);
 
   return (
     <>
@@ -34,9 +25,7 @@ export default async function Home() {
         </Link>
       </header>
       <main>
-        <SocketlessProvider url={url}>
-          <Chat websocketUrl={url} name={name} />
-        </SocketlessProvider>
+        <Test name={name} url={url} />
       </main>
       <footer className="fixed bottom-0 bg-black p-4 text-white w-full">
         <p className="text-center">

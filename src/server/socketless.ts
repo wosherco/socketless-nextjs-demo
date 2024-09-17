@@ -27,8 +27,8 @@ export const socketless = () =>
       console.log("User disconnected", identifier);
       context.toFeed("demo").send(`${identifier} disconnected`);
     },
-    onMessage(context, identifier, message) {
-      console.log("Message received", message);
-      context.toFeed("demo").send(`${identifier}: "${message}"`);
+    onMessage(context, identifier, payload) {
+      console.log("Message received", payload);
+      context.toFeed("demo").send(`${identifier}: "${payload.message}"`);
     },
   });

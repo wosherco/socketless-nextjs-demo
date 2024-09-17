@@ -1,4 +1,5 @@
 import Chat from "@/components/Chat";
+import { SocketlessProvider } from "@/lib/socketless";
 import { socketless } from "@/server/socketless";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -33,7 +34,9 @@ export default async function Home() {
         </Link>
       </header>
       <main>
-        <Chat websocketUrl={url} name={name} />
+        <SocketlessProvider url={url}>
+          <Chat websocketUrl={url} name={name} />
+        </SocketlessProvider>
       </main>
       <footer className="fixed bottom-0 bg-black p-4 text-white w-full">
         <p className="text-center">

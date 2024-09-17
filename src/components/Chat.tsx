@@ -8,6 +8,7 @@ import { Button } from "./ui/button";
 import { Loader, Send } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { Input } from "./ui/input";
+import { useSocketless, useSocketlessWebsocket } from "@/lib/socketless";
 
 function MessagesHistory({ messages }: { messages: string[] }) {
   return <div className="flex flex-col gap-2">
@@ -33,11 +34,11 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
 
   // Opening websocket and creating a message history
   const [messageHistory, setMessageHistory] = useState<string[]>([]);
-  const { sendMessage, lastMessage, readyState } = useWebSocket(websocketUrl);
+  const { client, lastMessage } = useSocketlessWebsocket(websocketUrl);
 
   useEffect(() => {
     if (lastMessage !== null) {
-      setMessageHistory((prev) => prev.concat(lastMessage.data));
+      setMessageHistory((prev) => prev.concat(lastMessage));
     }
   }, [lastMessage]);
 
@@ -56,9 +57,11 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
   const sendMessageCallback = useCallback(() => {
     if (!valid) return;
 
-    sendMessage(message);
+    client?.send({
+      message
+    })
     setMessage("");
-  }, [sendMessage, message, setMessage, valid])
+  }, [valid, client, message])
 
   return <div className="h-screen w-full flex items-center justify-center">
     <Card className="max-w-[500px] w-full mx-4">
@@ -72,7 +75,7 @@ export default function Chat({ websocketUrl, name }: { websocketUrl: string; nam
       </CardHeader>
       <CardContent className="min-h-[400px]">
         {
-          readyState === ReadyState.OPEN ?
+          client?.getState() === "CONNECTED" ?
 
             // Socket is connected, showing messages
             <MessagesHistory messages={messageHistory} /> :

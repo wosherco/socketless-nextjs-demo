@@ -1,7 +1,7 @@
 import { socketless } from "@/server/socketless";
 import Link from "next/link";
 import { generate } from "random-words";
-import Test from "@/components/Test";
+import ChatWithProvider from "@/components/ChatWithProvider";
 
 export const runtime = "edge";
 
@@ -25,7 +25,7 @@ export default async function Home() {
         </Link>
       </header>
       <main>
-        <Test name={name} url={url} />
+        <ChatWithProvider name={name} url={url} />
       </main>
       <footer className="fixed bottom-0 bg-black p-4 text-white w-full">
         <p className="text-center">
